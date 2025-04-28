@@ -70,6 +70,10 @@ export class VerovioToolkit {
         return this.proxy.getLog(this.ptr);
     }
 
+    getTempo(millisec) {
+        return this.proxy.getTempo(this.ptr, millisec);
+    }
+
     getMEI(options = {}) {
         return this.proxy.getMEI(this.ptr, JSON.stringify(options));
     }

@@ -490,6 +490,8 @@ public:
 
     ///@}
 
+    std::string GetTempo(int millisec);
+
     /**
      **************************************************************************
      * @name MEI related methods

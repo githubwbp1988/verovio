@@ -57,6 +57,8 @@ function getToolkitFunction(VerovioModule, method) {
     // char *getLog(Toolkit *ic)
     mapping.getLog = VerovioModule.cwrap("vrvToolkit_getLog", "string", ["number"]);
 
+    mapping.getTempo = VerovioModule.cwrap("vrvToolkit_getTempo", "string", ["number"]);
+
     // char *getMEI(Toolkit *ic, const char *options)
     mapping.getMEI = VerovioModule.cwrap("vrvToolkit_getMEI", "string", ["number", "string"]);
 

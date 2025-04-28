@@ -89,6 +89,12 @@ def getExpansionIdsForElement(self, xmlId: str) -> dict:
     return json.loads($action(self, xmlId))
 %}
 
+// Toolkit::GetTempo
+%feature("shadow") vrv::Toolkit::GetTempo(int) %{
+def getTempo(self, millisec: int) -> str:
+    return $action(self, millisec)
+%}
+
 // Toolkit::GetMEI
 %feature("shadow") vrv::Toolkit::GetMEI(const std::string & = "") %{
 def getMEI(self, options: Optional[dict] = None) -> str:

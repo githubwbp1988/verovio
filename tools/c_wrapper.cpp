@@ -158,6 +158,12 @@ const char *vrvToolkit_getLog(void *tkPtr)
     return tk->GetCString();
 }
 
+const char *vrvToolkit_getTempo(void *tkPtr, int millisec) {
+    Toolkit *tk = static_cast<Toolkit *>(tkPtr);
+    tk->SetCString(tk->GetTempo(millisec));
+    return tk->GetCString();
+}
+
 const char *vrvToolkit_getMEI(void *tkPtr, const char *options)
 {
     Toolkit *tk = static_cast<Toolkit *>(tkPtr);

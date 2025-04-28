@@ -461,6 +461,23 @@ const Staff *Measure::GetBottomVisibleStaff() const
     return bottomStaff;
 }
 
+int Measure::GetMeasureTempo() const {
+    return m_currentTempo;
+}
+
+int Measure::GetMeasureBeginTime() const {
+    return (int)*m_realTimeOffsetMilliseconds.begin();
+}
+
+double Measure::QurarterDuration() const {
+    double timeDuration = m_measureAligner.GetRightAlignment()->GetTime().ToDouble() * SCORE_TIME_UNIT * 60.0 / m_currentTempo * 1000.0+ 0.5;
+    return timeDuration;
+}
+double Measure::MeasureBeats() const {
+    double beats = m_measureAligner.GetRightAlignment()->GetTime().ToDouble() * SCORE_TIME_UNIT;
+    return beats;
+}
+
 int Measure::EnclosesTime(int time) const
 {
     int repeat = 1;

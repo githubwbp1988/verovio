@@ -947,6 +947,71 @@ bool Toolkit::LoadData(const std::string &data, bool resetLogBuffer)
     return true;
 }
 
+std::string Toolkit::GetTempo(int millisec) {
+    ScoreDef *scoreDef = m_doc.GetFirstVisibleScore()->GetScoreDef();
+    int count = 0;
+    int unit = 0;
+
+    MeterSig *meterSig = vrv_cast<MeterSig *>(scoreDef->FindDescendantByType(METERSIG));
+    if (!meterSig && (scoreDef->HasMeterSigInfo())) {
+        meterSig = vrv_cast<MeterSig *>(scoreDef->GetMeterSig());
+    }
+    if (meterSig) {
+        if (meterSig->HasCount()) {
+            count = meterSig->GetTotalCount();
+        }
+        if (meterSig->HasUnit()) {
+            unit = meterSig->GetUnit();
+        }
+    }
+
+    jsonxx::Object o;
+
+    // Here we need to check that the MIDI timemap is done
+    if (!m_doc.HasTimemap()) {
+        // generate MIDI timemap before progressing
+        m_doc.CalculateTimemap();
+    }
+
+    MeasureOnsetOffsetComparison matchMeasureTime(millisec);
+    Measure *measure = dynamic_cast<Measure *>(m_doc.FindDescendantByComparison(&matchMeasureTime));
+
+    if (!measure) {
+        return o.json();
+    }
+
+    int tempo = measure->GetMeasureTempo();
+
+    int begin = measure->GetMeasureBeginTime();
+
+    double quarterTimeDuration = measure->QurarterDuration();
+
+    double beatduration = 0;
+    if (count == 0) {
+        count = measure->MeasureBeats();
+    }
+    if (count == 0) {
+        count = 4;
+    }
+    beatduration = quarterTimeDuration / count;
+    if (unit == 0) {
+        unit = 4;
+    }
+
+    data_BARRENDITION left = measure->GetLeft();
+    data_BARRENDITION right = measure->GetRight();
+
+    o << "tempo" << tempo;
+    o << "begin" << begin;
+    o << "count" << count;
+    o << "unit" << unit;
+    o << "beatduration" << (int)beatduration;
+    o << "left" << (int)left;
+    o << "right" << (int)right;
+
+    return o.json();
+}
+
 std::string Toolkit::GetMEI(const std::string &jsonOptions)
 {
     bool scoreBased = true;

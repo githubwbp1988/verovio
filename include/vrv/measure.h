@@ -303,6 +303,13 @@ public:
     const Staff *GetBottomVisibleStaff() const;
     ///@}
 
+    int GetMeasureTempo() const;
+
+    int GetMeasureBeginTime() const;
+
+    double QurarterDuration() const;
+    double MeasureBeats() const;
+
     /**
      * Check if the measure encloses the given time (in millisecond)
      * Return the playing repeat time (1-based), 0 otherwise

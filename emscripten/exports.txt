@@ -15,6 +15,7 @@ _vrvToolkit_convertHumdrumToHumdrum
 _vrvToolkit_convertHumdrumToMIDI
 _vrvToolkit_convertMEIToHumdrum
 _vrvToolkit_getLog
+_vrvToolkit_getTempo
 _vrvToolkit_getMEI
 _vrvToolkit_getMIDIValuesForElement
 _vrvToolkit_getNotatedIdForElement

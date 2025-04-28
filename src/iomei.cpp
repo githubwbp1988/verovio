@@ -5550,6 +5550,7 @@ bool MEIInput::ReadMeasure(Object *parent, pugi::xml_node measure)
 
     vrvMeasure->ReadBarring(measure);
     vrvMeasure->ReadMeasureLog(measure);
+
     vrvMeasure->ReadMeterConformanceBar(measure);
     vrvMeasure->ReadNNumberLike(measure);
     vrvMeasure->ReadPointing(measure);
